@@ -1,11 +1,20 @@
 package pet.store.entity;
 
-import jakarta.persistence.*;
+import java.util.LinkedHashSet;
+import java.util.Set;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
-
-import java.util.Set;
 
 @Entity
 @Data
@@ -30,11 +39,10 @@ public class PetStore {
         joinColumns = @JoinColumn(name = "pet_store_id"),
         inverseJoinColumns = @JoinColumn(name = "customer_id")
     )
-    private Set<Customer> customers;
+    private Set<Customer> customers = new LinkedHashSet<>();
 
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     @OneToMany(mappedBy = "petStore", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Employee> employees;
+    private Set<Employee> employees = new LinkedHashSet<>();
 }
-

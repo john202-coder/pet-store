@@ -8,16 +8,22 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import lombok.extern.slf4j.Slf4j;
-
 @RestControllerAdvice
-@Slf4j
 public class GlobalErrorHandler {
+
+    @ExceptionHandler(Exception.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public Map<String, String> handleGeneralException(Exception ex) {
+        ex.printStackTrace(); // Log to console
+        return Map.of(
+            "error", ex.getClass().getSimpleName(),
+            "message", ex.getMessage()
+        );
+    }
 
     @ExceptionHandler(NoSuchElementException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public Map<String, String> handleNoSuchElementException(NoSuchElementException e) {
-        log.error("NoSuchElementException: {}", e.toString());
-        return Map.of("message", e.toString());
+    public Map<String, String> handleNotFound(NoSuchElementException ex) {
+        return Map.of("message", ex.getMessage());
     }
 }

@@ -31,10 +31,10 @@ public class PetStoreData {
         petStoreZip = petStore.getPetStoreZip();
         petStorePhone = petStore.getPetStorePhone();
 
-        petStore.getCustomers().forEach(customer -> 
+        petStore.getCustomers().forEach(customer ->
             customers.add(new PetStoreCustomer(customer)));
 
-        petStore.getEmployees().forEach(employee -> 
+        petStore.getEmployees().forEach(employee ->
             employees.add(new PetStoreEmployee(employee)));
     }
 
@@ -51,6 +51,11 @@ public class PetStoreData {
             customerFirstName = customer.getCustomerFirstName();
             customerLastName = customer.getCustomerLastName();
             customerEmail = customer.getCustomerEmail();
+        }
+
+        
+        public String getCustomerName() {
+            return customerFirstName + " " + customerLastName;
         }
     }
 
@@ -69,6 +74,11 @@ public class PetStoreData {
             employeeLastName = employee.getEmployeeLastName();
             employeeJobTitle = employee.getEmployeeJobTitle();
             employeePhone = employee.getEmployeePhone();
+        }
+
+        
+        public String getEmployeeName() {
+            return employeeFirstName + " " + employeeLastName;
         }
     }
 }
